@@ -20,5 +20,5 @@ include "llvm/Target/Target.td"
 //===----------------------------------------------------------------------===//
 
 include "Cpu0RegisterInfo.td"
-include "Cpu0RegisterINfoGPROutForOther.td" // except AsmParser
+include "Cpu0RegisterInfoGPROutForOther.td" // except AsmParser
 include "Cpu0.td"
