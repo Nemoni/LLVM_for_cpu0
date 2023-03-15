@@ -312,6 +312,7 @@ enum {
   EM_RISCV = 243,         // RISC-V
   EM_LANAI = 244,         // Lanai 32-bit processor
   EM_BPF = 247,           // Linux kernel bpf virtual machine
+  EM_AIR = 999,           // AIR
 };
 
 // Object file classes.
@@ -761,6 +762,19 @@ enum : unsigned {
 // ELF Relocation types for MSP430
 enum {
 #include "ELFRelocs/MSP430.def"
+};
+
+// Air Specific e_flags
+enum : unsigned {
+  EF_AIR_NOREORDER = 0x00000001,  // Don't reorder instructions
+  EF_AIR_PIC       = 0x00000002,  // Position independent code
+  EF_AIR_ARCH_32   = 0x50000000,  // AIR32 instruction set per linux not elf.h
+  EF_AIR_ARCH      = 0xf0000000,  // Mask for applying EF_AIR_ARCH_ variant
+};
+
+// ELF Relocation types for Air
+enum {
+#include "ELFRelocs/Air.def"
 };
 
 #undef ELF_RELOC

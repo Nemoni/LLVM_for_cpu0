@@ -70,6 +70,8 @@ StringRef Triple::getArchTypeName(ArchType Kind) {
   case wasm64:         return "wasm64";
   case renderscript32: return "renderscript32";
   case renderscript64: return "renderscript64";
+  case air:            return "air";
+  case airel:          return "airel";
   }
 
   llvm_unreachable("Invalid ArchType!");
@@ -143,6 +145,8 @@ StringRef Triple::getArchTypePrefix(ArchType Kind) {
 
   case riscv32:
   case riscv64:     return "riscv";
+  case air:
+  case airel:      return "air";
   }
 }
 
@@ -308,6 +312,8 @@ Triple::ArchType Triple::getArchTypeForLLVMName(StringRef Name) {
     .Case("wasm64", wasm64)
     .Case("renderscript32", renderscript32)
     .Case("renderscript64", renderscript64)
+    .Case("air", air)
+    .Case("airel", airel)
     .Default(UnknownArch);
 }
 
@@ -434,6 +440,8 @@ static Triple::ArchType parseArch(StringRef ArchName) {
     .Case("wasm64", Triple::wasm64)
     .Case("renderscript32", Triple::renderscript32)
     .Case("renderscript64", Triple::renderscript64)
+    .Cases("air", "aireb", "airallegrex", Triple::air)
+    .Cases("airel", "airallegrexel", Triple::airel)
     .Default(Triple::UnknownArch);
 
   // Some architectures require special parsing logic just to compute the
@@ -681,6 +689,8 @@ static Triple::ObjectFormatType getDefaultFormat(const Triple &T) {
   case Triple::tcele:
   case Triple::thumbeb:
   case Triple::xcore:
+  case Triple::air:
+  case Triple::airel:
     return Triple::ELF;
 
   case Triple::ppc:
@@ -1239,6 +1249,8 @@ static unsigned getArchPointerBitWidth(llvm::Triple::ArchType Arch) {
   case llvm::Triple::shave:
   case llvm::Triple::wasm32:
   case llvm::Triple::renderscript32:
+  case llvm::Triple::air:
+  case llvm::Triple::airel:
     return 32;
 
   case llvm::Triple::aarch64:
@@ -1319,6 +1331,8 @@ Triple Triple::get32BitArchVariant() const {
   case Triple::shave:
   case Triple::wasm32:
   case Triple::renderscript32:
+  case Triple::air:
+  case Triple::airel:
     // Already 32-bit.
     break;
 
