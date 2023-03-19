@@ -31,7 +31,7 @@ using namespace llvm;
 #include "AirGenInstrInfo.inc"
 
 #define GET_SUBTARGETINFO_MC_DESC
-//#include "AirGenSubtargetInfo.inc"
+#include "AirGenSubtargetInfo.inc"
 
 #define GET_REGINFO_MC_DESC
 #include "AirGenRegisterInfo.inc"

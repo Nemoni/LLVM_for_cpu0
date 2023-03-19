@@ -29,6 +29,39 @@ include "AirSchedule.td"
 // Instruction Description
 include "AirInstrInfo.td"
 
+// Calling Convention
+include "AirCallingConv.td"
+
+//===----------------------------------------------------------------------===//
+// Air SUbtarget features
+//===----------------------------------------------------------------------===//
+
+def FeatureCmp            : SubtargetFeature<"cmp", "HasCmp", "true",
+                                             "Enable 'cmp' instructions.">;
+def FeatureSlt            : SubtargetFeature<"slt", "HasSlt", "true",
+                                             "Enable 'slt' instructions.">;
+def FeatureAir32I        : SubtargetFeature<"air32I", "AirArchVersion",
+                                             "Air32I", "Air32I ISA Support",
+                                             [FeatureCmp]>;
+def FeatureAir32II       : SubtargetFeature<"air32II", "AirArchVersion",
+                                             "Air32II", "Air32II ISA Support",
+                                             [FeatureCmp, FeatureSlt]>;
+
+//===----------------------------------------------------------------------===//
+// Air processors supported
+//===----------------------------------------------------------------------===//
+class Proc<string Name, list<SubtargetFeature> Features>
+  : Processor<Name, AirGenericItineraries, Features>;
+
+def : Proc<"air32I", [FeatureAir32I]>;
+def : Proc<"air32II", [FeatureAir32II]>;
+// Above make AirGenSubtargetInfo.inc set feature bit as the following order:
+// enum {
+//   FeatureCmp =  1ULL << 0,
+//   FeatureAir32I =  1ULL << 1,
+//   FeatureAir32II =  1ULL << 2,
+//   FeatureSlt =  1ULL << 3
+// };
 def AirInstrInfo : InstrInfo;
 
 // Whill generate AirGenAsmWrite.inc included by AirInstPrinter.cpp, contents

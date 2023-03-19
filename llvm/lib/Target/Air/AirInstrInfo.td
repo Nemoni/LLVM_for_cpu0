@@ -21,7 +21,14 @@ def SDT_AirRet : SDTypeProfile<0, 1, [SDTCisInt<0>]>;
 // Return
 def AirRet : SDNode<"AirISD::Ret", SDTNone,
                      [SDNPHasChain, SDNPOptInGlue, SDNPVariadic]>;
+//===----------------------------------------------------------------------===//
+// Air Instruction Predicate Definitions.
+//===----------------------------------------------------------------------===//
+def EnableOverflow  : Predicate<"Subtarget->enableOverflow()">;
+def DisableOverflow : Predicate<"Subtarget->disableOverflow()">;
 
+def HasCmp          : Predicate<"Subtarget->hasCmp()">;
+def HasSlt          : Predicate<"Subtarget->hasSlt()">;
 //===----------------------------------------------------------------------===//
 // Instruction format superclass
 //===----------------------------------------------------------------------===//

@@ -34,6 +34,6 @@ namespace llvm {
 #include "AirGenInstrInfo.inc"
 
 #define GET_SUBTARGETINFO_ENUM
-//#include "AirGenSubtargetInfo.inc"
+#include "AirGenSubtargetInfo.inc"
 
 #endif
